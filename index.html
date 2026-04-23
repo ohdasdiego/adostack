@@ -106,6 +106,16 @@
       letter-spacing: 2px;
     }
 
+    .nav-logo-tagline {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 2px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -592,7 +602,10 @@
   <nav>
     <a href="#" class="nav-logo">
       <div class="nav-logo-mark">ADO</div>
-      <span class="nav-logo-text">stack</span>
+      <div>
+        <span class="nav-logo-text">stack</span>
+        <span class="nav-logo-tagline">AI-Driven Operations</span>
+      </div>
     </a>
     <div class="nav-links">
       <a href="#tools">Tools</a>
@@ -619,10 +632,7 @@
         <span class="hero-stat-num">4</span>
         <span class="hero-stat-label">Live Domains</span>
       </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">AI</span>
-        <span class="hero-stat-label">Powered</span>
-      </div>
+
     </div>
     <a href="#tools" class="hero-cta">View the Stack ↓</a>
     <div class="hero-scroll">scroll</div>
@@ -641,8 +651,7 @@
       <a class="card" href="https://monitor.ado-runner.com" target="_blank" rel="noopener">
         <span class="card-corner">01</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-num">// NOC</div>
-        <div class="card-title">AI Infra Monitor<span class="arrow">→</span></div>
+        <div class="card-title">Infra Monitor<span class="arrow">→</span></div>
         <div class="card-role">Infrastructure Monitoring</div>
         <div class="card-desc">
           Real-time server health dashboard monitoring CPU, memory, disk, and network across VPS infrastructure. Claude generates plain-English NOC digests and anomaly alerts on demand.
@@ -661,8 +670,7 @@
       <a class="card" href="https://incidents.ado-runner.com" target="_blank" rel="noopener">
         <span class="card-corner">02</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-num">// ALERTING</div>
-        <div class="card-title">AI Incident Logger<span class="arrow">→</span></div>
+        <div class="card-title">Incident Logger<span class="arrow">→</span></div>
         <div class="card-role">Incident Management</div>
         <div class="card-desc">
           Automated alerting and incident tracking pipeline. Detects threshold breaches across CPU, memory, disk, and processes — fires Telegram alerts with AI-generated summaries, severity levels, and recommended actions. Full ACK/resolve workflow with SQLite-backed history.
@@ -681,9 +689,9 @@
       <a class="card" href="https://runbooks.ado-runner.com" target="_blank" rel="noopener">
         <span class="card-corner">03</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-num">// AI ENGINEER</div>
+
         <div class="card-title">RAG Runbook Assistant<span class="arrow">→</span></div>
-        <div class="card-role">Retrieval-Augmented Generation</div>
+
         <div class="card-desc">
           Ask natural-language questions against a corpus of ops runbooks. Semantic search via ChromaDB and MiniLM retrieves the most relevant procedures, then Claude generates grounded, cited answers.
         </div>
@@ -701,9 +709,8 @@
       <a class="card" href="https://k8s.ado-runner.com" target="_blank" rel="noopener">
         <span class="card-corner">04</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-num">// DEVOPS / SRE</div>
         <div class="card-title">K8s Event Summarizer<span class="arrow">→</span></div>
-        <div class="card-role">Kubernetes Observability</div>
+
         <div class="card-desc">
           Live Kubernetes cluster dashboard connected to a Civo k3s cluster. Tracks pod health, node status, deployments, and warning events. Claude synthesizes cluster state into actionable NOC digests.
         </div>
@@ -777,7 +784,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-left">
-      <span>ADOstack</span> — AI-Driven Operations · Built by Diego Perez
+      <span>ADOstack</span> — AI-Driven Operations
     </div>
     <div class="footer-right">
       ado-runner.com
