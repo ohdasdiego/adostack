@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADOstack — AI-Driven Operations</title>
+  <meta name="description" content="ADOstack — A suite of AI-powered operations tools built for NOC, DevOps, and SRE engineers."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #080808;
+      --bg2:      #0f0f0f;
+      --bg3:      #161616;
+      --border:   #222;
+      --orange:   #ff6a00;
+      --orange2:  #ff8c00;
+      --orange-d: #cc5200;
+      --orange-g: rgba(255,106,0,0.12);
+      --orange-g2:rgba(255,106,0,0.05);
+      --green:    #39ff14;
+      --text:     #e8e4dc;
+      --text-dim: #666;
+      --text-mid: #999;
+      --mono:     'Share Tech Mono', monospace;
+      --display:  'Exo 2', sans-serif;
+      --ui:       'Rajdhani', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ui);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,106,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,106,0,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(8,8,8,0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: bold;
+      color: #000;
+      background: var(--orange);
+      padding: 4px 10px;
+      letter-spacing: 2px;
+      clip-path: polygon(0 0, 88% 0, 100% 100%, 12% 100%);
+    }
+
+    .nav-logo-text {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--orange) !important;
+      border: 1px solid var(--orange-d);
+      padding: 6px 14px;
+      letter-spacing: 2px;
+    }
+    .nav-cta:hover { background: var(--orange-g) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    .hero-eyebrow span {
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--orange);
+      vertical-align: middle;
+      margin: 0 12px;
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(56px, 10vw, 110px);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -2px;
+      color: var(--text);
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+
+    .hero-title .accent {
+      color: var(--orange);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title .accent::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+      opacity: 0.4;
+    }
+
+    .hero-subtitle {
+      font-family: var(--display);
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 300;
+      color: var(--text-mid);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.3s forwards;
+    }
+
+    .hero-desc {
+      max-width: 580px;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.5s forwards;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-family: var(--mono);
+      font-size: 32px;
+      color: var(--orange);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #000;
+      background: var(--orange);
+      padding: 14px 32px;
+      text-decoration: none;
+      text-transform: uppercase;
+      clip-path: polygon(0 0, 93% 0, 100% 100%, 7% 100%);
+      transition: background 0.2s, transform 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.6s forwards;
+    }
+    .hero-cta:hover { background: var(--orange2); transform: scale(1.03); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: bounce 2s ease infinite;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--orange), transparent);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 48px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-divider-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--orange);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .section-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--orange-d), transparent);
+    }
+
+    /* ── TOOLS SECTION ── */
+    .tools-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 48px 80px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── PROJECT CARD ── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.25s, background 0.25s;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--orange-d);
+      background: var(--bg3);
+    }
+
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-corner {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    .card-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--orange-d);
+      letter-spacing: 2px;
+    }
+
+    .card-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+
+    .card-title .arrow {
+      color: var(--orange);
+      opacity: 0;
+      margin-left: 6px;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .card:hover .arrow { opacity: 1; transform: translateX(4px); }
+
+    .card-role {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--orange);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      background: var(--bg);
+      text-transform: uppercase;
+    }
+
+    .badge-orange {
+      border-color: rgba(255,106,0,0.3);
+      color: var(--orange);
+      background: var(--orange-g2);
+    }
+
+    .card-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--green);
+      letter-spacing: 1px;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about-section {
+      position: relative;
+      z-index: 1;
+      padding: 0 48px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .about-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .about-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--orange);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .about-text {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .about-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .about-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-mid);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .about-link:hover {
+      border-color: var(--orange-d);
+      color: var(--orange);
+      background: var(--orange-g2);
+    }
+
+    .about-link-icon { font-size: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    .footer-left span { color: var(--orange); }
+
+    .footer-right {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-stats { gap: 24px; }
+      .tools-section, .about-section { padding: 0 20px 60px; }
+      .tools-grid, .about-grid { grid-template-columns: 1fr; }
+      .section-divider { padding: 0 20px; }
+      footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">ADO</div>
+      <span class="nav-logo-text">stack</span>
+    </a>
+    <div class="nav-links">
+      <a href="#tools">Tools</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/ohdasdiego" target="_blank" rel="noopener" class="nav-cta">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><span></span>AI-Driven Operations<span></span></div>
+    <h1 class="hero-title"><span class="accent">ADO</span>stack</h1>
+    <p class="hero-subtitle">Operations Intelligence Platform</p>
+    <p class="hero-desc">
+      A suite of production-grade AI tools built for NOC, DevOps, and SRE engineers.
+      Real clusters. Real incidents. Real intelligence.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">4</span>
+        <span class="hero-stat-label">Live Tools</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">4</span>
+        <span class="hero-stat-label">Live Domains</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">AI</span>
+        <span class="hero-stat-label">Powered</span>
+      </div>
+    </div>
+    <a href="#tools" class="hero-cta">View the Stack ↓</a>
+    <div class="hero-scroll">scroll</div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools" class="tools-section">
+    <div class="section-divider">
+      <span class="section-divider-label">// The Stack</span>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="tools-grid" style="max-width:1100px;margin:0 auto;">
+
+      <!-- Card 1: AI Infra Monitor -->
+      <a class="card" href="https://monitor.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">01</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-num">// NOC</div>
+        <div class="card-title">AI Infra Monitor<span class="arrow">→</span></div>
+        <div class="card-role">Infrastructure Monitoring</div>
+        <div class="card-desc">
+          Real-time server health dashboard monitoring CPU, memory, disk, and network across VPS infrastructure. Claude generates plain-English NOC digests and anomaly alerts on demand.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">Flask</span>
+          <span class="badge">psutil</span>
+          <span class="badge">Nginx</span>
+          <span class="badge">systemd</span>
+        </div>
+      </a>
+
+      <!-- Card 2: AI Incident Logger -->
+      <a class="card" href="https://incidents.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">02</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-num">// ALERTING</div>
+        <div class="card-title">AI Incident Logger<span class="arrow">→</span></div>
+        <div class="card-role">Incident Management</div>
+        <div class="card-desc">
+          Automated alerting and incident tracking pipeline. Detects threshold breaches across CPU, memory, disk, and processes — fires Telegram alerts with AI-generated summaries, severity levels, and recommended actions. Full ACK/resolve workflow with SQLite-backed history.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">Flask</span>
+          <span class="badge">SQLite</span>
+          <span class="badge">Nginx</span>
+          <span class="badge">Cloudflare</span>
+        </div>
+      </a>
+
+      <!-- Card 3: RAG Runbook Assistant -->
+      <a class="card" href="https://runbooks.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">03</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-num">// AI ENGINEER</div>
+        <div class="card-title">RAG Runbook Assistant<span class="arrow">→</span></div>
+        <div class="card-role">Retrieval-Augmented Generation</div>
+        <div class="card-desc">
+          Ask natural-language questions against a corpus of ops runbooks. Semantic search via ChromaDB and MiniLM retrieves the most relevant procedures, then Claude generates grounded, cited answers.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">ChromaDB</span>
+          <span class="badge">MiniLM</span>
+          <span class="badge">Flask</span>
+          <span class="badge">RAG</span>
+        </div>
+      </a>
+
+      <!-- Card 4: K8s Event Summarizer -->
+      <a class="card" href="https://k8s.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">04</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-num">// DEVOPS / SRE</div>
+        <div class="card-title">K8s Event Summarizer<span class="arrow">→</span></div>
+        <div class="card-role">Kubernetes Observability</div>
+        <div class="card-desc">
+          Live Kubernetes cluster dashboard connected to a Civo k3s cluster. Tracks pod health, node status, deployments, and warning events. Claude synthesizes cluster state into actionable NOC digests.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">Kubernetes</span>
+          <span class="badge">Civo k3s</span>
+          <span class="badge">Flask</span>
+          <span class="badge">Nginx</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about-section">
+    <div class="section-divider" style="padding:0;margin-bottom:48px;">
+      <span class="section-divider-label">// About</span>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-label">// What is ADOstack</div>
+        <p class="about-text">
+          ADOstack is a portfolio of production-deployed AI operations tools built to demonstrate
+          real-world LLM integration across NOC, SRE, DevOps, and AI engineering workflows.<br><br>
+          Every tool runs on live infrastructure — real clusters, real incident data, real API calls.
+          No mockups. No local-only demos. Each project is deployed with Nginx, Gunicorn, systemd,
+          and Cloudflare, mirroring the patterns used in production environments.<br><br>
+          The stack grows with each project, covering RAG pipelines, Kubernetes observability,
+          multi-agent orchestration, and LLM evaluation frameworks.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-label">// Connect</div>
+        <div class="about-links">
+          <a class="about-link" href="https://github.com/ohdasdiego" target="_blank" rel="noopener">
+            <span class="about-link-icon">⌥</span>
+            github.com/ohdasdiego
+          </a>
+          <a class="about-link" href="https://www.linkedin.com/in/diego-perez-51598967" target="_blank" rel="noopener">
+            <span class="about-link-icon">◈</span>
+            linkedin.com/in/diego-perez-51598967
+          </a>
+        </div>
+        <div style="margin-top:24px;">
+          <div class="about-label">// Stack Overview</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span class="badge badge-orange">Claude API</span>
+            <span class="badge">Python</span>
+            <span class="badge">Flask</span>
+            <span class="badge">Kubernetes</span>
+            <span class="badge">ChromaDB</span>
+            <span class="badge">RAG</span>
+            <span class="badge">Nginx</span>
+            <span class="badge">Gunicorn</span>
+            <span class="badge">systemd</span>
+            <span class="badge">Cloudflare</span>
+            <span class="badge">Ubuntu</span>
+            <span class="badge">Civo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <span>ADOstack</span> — AI-Driven Operations · Built by Diego Perez
+    </div>
+    <div class="footer-right">
+      ado-runner.com
+    </div>
+  </footer>
+
+</body>
+</html>
