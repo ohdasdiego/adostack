@@ -667,88 +667,29 @@
 
     <div class="tools-grid" style="max-width:1100px;margin:0 auto;">
 
-      <!-- Card 1: AI Infra Monitor -->
-      <a class="card" href="https://monitor.ado-runner.com" target="_blank" rel="noopener">
+      <!-- Card 1: On-Call Assistant -->
+      <a class="card" href="https://oncall.ado-runner.com" target="_blank" rel="noopener">
         <span class="card-corner">01</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-title">Infra Monitor<span class="arrow">→</span></div>
-        <div class="card-role">Infrastructure Monitoring</div>
+        <div class="card-title">On-Call Assistant<span class="arrow">→</span></div>
+        <div class="card-role">Incident Response &amp; Escalation</div>
         <div class="card-desc">
-          Real-time server health dashboard monitoring CPU, memory, disk, and network across VPS infrastructure. Claude generates plain-English NOC digests and anomaly alerts on demand.
+          The ADOStack operations hub. Aggregates live context from Infra Monitor, Incident Logger, and RAG Runbook in parallel when an alert fires, then generates a structured Claude response plan. Manages full incident lifecycle with auto-resolution when metrics normalize, Telegram action buttons for high/critical, and AI shift handoff notes.
         </div>
         <div class="card-badges">
           <span class="badge badge-orange">Claude API</span>
           <span class="badge">Python</span>
-          <span class="badge">Flask</span>
-          <span class="badge">psutil</span>
-          <span class="badge">Nginx</span>
-          <span class="badge">systemd</span>
-        </div>
-      </a>
-
-      <!-- Card 2: AI Incident Logger -->
-      <a class="card" href="https://incidents.ado-runner.com" target="_blank" rel="noopener">
-        <span class="card-corner">02</span>
-        <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-title">Incident Logger<span class="arrow">→</span></div>
-        <div class="card-role">Detection &amp; Record Keeping</div>
-        <div class="card-desc">
-          Threshold detection engine for the ADOStack platform. Monitors CPU, memory, disk, and processes every 5 minutes — generates AI incident summaries via Claude and routes alerts to the On-Call Assistant via HMAC-signed webhook for lifecycle tracking and action buttons. Falls back to direct Telegram if On-Call is unavailable.
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-orange">Claude API</span>
-          <span class="badge">Python</span>
-          <span class="badge">Flask</span>
           <span class="badge">SQLite</span>
+          <span class="badge">Flask</span>
           <span class="badge">Webhook</span>
+          <span class="badge">Telegram</span>
           <span class="badge">HMAC Auth</span>
         </div>
       </a>
 
-      <!-- Card 3: RAG Runbook Assistant -->
-      <a class="card" href="https://runbooks.ado-runner.com" target="_blank" rel="noopener">
-        <span class="card-corner">03</span>
-        <div class="card-status"><div class="status-dot"></div>LIVE</div>
-
-        <div class="card-title">RAG Runbook Assistant<span class="arrow">→</span></div>
-        <div class="card-role">Retrieval-Augmented Generation</div>
-
-        <div class="card-desc">
-          Ask natural-language questions against a corpus of ops runbooks. Semantic search via ChromaDB and MiniLM retrieves the most relevant procedures, then Claude generates grounded, cited answers.
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-orange">Claude API</span>
-          <span class="badge">Python</span>
-          <span class="badge">ChromaDB</span>
-          <span class="badge">MiniLM</span>
-          <span class="badge">Flask</span>
-          <span class="badge">RAG</span>
-        </div>
-      </a>
-
-      <!-- Card 4: K8s Event Summarizer -->
-      <a class="card" href="https://k8s.ado-runner.com" target="_blank" rel="noopener">
-        <span class="card-corner">04</span>
-        <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-title">K8s Event Summarizer<span class="arrow">→</span></div>
-        <div class="card-role">Kubernetes Observability</div>
-
-        <div class="card-desc">
-          Live Kubernetes cluster dashboard connected to a Civo k3s cluster. Tracks pod health, node status, deployments, and warning events. Claude synthesizes cluster state into actionable NOC digests.
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-orange">Claude API</span>
-          <span class="badge">Python</span>
-          <span class="badge">Kubernetes</span>
-          <span class="badge">Civo k3s</span>
-          <span class="badge">Flask</span>
-          <span class="badge">Nginx</span>
-        </div>
-      </a>
-
-      <!-- Card 5: Incident Orchestrator -->
+      <!-- Card 2: Incident Orchestrator -->
       <a class="card" href="https://orchestrator.ado-runner.com" target="_blank" rel="noopener">
-        <span class="card-corner">05</span>
+        <span class="card-corner">02</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
         <div class="card-title">Incident Orchestrator<span class="arrow">→</span></div>
         <div class="card-role">Multi-Agent Pipeline</div>
@@ -766,23 +707,79 @@
         </div>
       </a>
 
-      <!-- Card 6: On-Call Assistant -->
-      <a class="card" href="https://oncall.ado-runner.com" target="_blank" rel="noopener">
-        <span class="card-corner">06</span>
+      <!-- Card 3: AI Incident Logger -->
+      <a class="card" href="https://incidents.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">03</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
-        <div class="card-title">On-Call Assistant<span class="arrow">→</span></div>
-        <div class="card-role">Incident Response &amp; Escalation</div>
+        <div class="card-title">Incident Logger<span class="arrow">→</span></div>
+        <div class="card-role">Detection &amp; Record Keeping</div>
         <div class="card-desc">
-          AI-powered on-call operations hub. When an alert fires, it aggregates context from Infra Monitor, Incident Logger, and RAG Runbook in parallel — generating a structured response plan via Claude. High/critical alerts route to Telegram with action buttons; low/medium are auto-handled. Full incident lifecycle tracking with timeline, status flow, and shift handoff notes.
+          Threshold detection engine for the ADOStack platform. Monitors CPU, memory, disk, and processes every 5 minutes — generates AI incident summaries via Claude and routes alerts to the On-Call Assistant via HMAC-signed webhook. Falls back to direct Telegram if On-Call is unavailable.
         </div>
         <div class="card-badges">
           <span class="badge badge-orange">Claude API</span>
           <span class="badge">Python</span>
-          <span class="badge">SQLite</span>
           <span class="badge">Flask</span>
+          <span class="badge">SQLite</span>
           <span class="badge">Webhook</span>
-          <span class="badge">Telegram</span>
           <span class="badge">HMAC Auth</span>
+        </div>
+      </a>
+
+      <!-- Card 4: RAG Runbook Assistant -->
+      <a class="card" href="https://runbooks.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">04</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-title">RAG Runbook Assistant<span class="arrow">→</span></div>
+        <div class="card-role">Retrieval-Augmented Generation</div>
+        <div class="card-desc">
+          Ask natural-language questions against a corpus of ops runbooks. Semantic search via ChromaDB and MiniLM retrieves the most relevant procedures, then Claude generates grounded, cited answers.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">ChromaDB</span>
+          <span class="badge">MiniLM</span>
+          <span class="badge">Flask</span>
+          <span class="badge">RAG</span>
+        </div>
+      </a>
+
+      <!-- Card 5: AI Infra Monitor -->
+      <a class="card" href="https://monitor.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">05</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-title">Infra Monitor<span class="arrow">→</span></div>
+        <div class="card-role">Infrastructure Monitoring</div>
+        <div class="card-desc">
+          Real-time server health dashboard monitoring CPU, memory, disk, and network across VPS infrastructure. Claude generates plain-English NOC digests and anomaly alerts on demand.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">Flask</span>
+          <span class="badge">psutil</span>
+          <span class="badge">Nginx</span>
+          <span class="badge">systemd</span>
+        </div>
+      </a>
+
+      <!-- Card 6: K8s Event Summarizer -->
+      <a class="card" href="https://k8s.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">06</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-title">K8s Event Summarizer<span class="arrow">→</span></div>
+        <div class="card-role">Kubernetes Observability</div>
+        <div class="card-desc">
+          Live Kubernetes cluster dashboard connected to a Civo k3s cluster. Tracks pod health, node status, deployments, and warning events. Claude synthesizes cluster state into actionable NOC digests.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">Kubernetes</span>
+          <span class="badge">Civo k3s</span>
+          <span class="badge">Flask</span>
+          <span class="badge">Nginx</span>
         </div>
       </a>
 
