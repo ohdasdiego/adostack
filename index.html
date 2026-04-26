@@ -360,6 +360,8 @@
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
     .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; }
 
     .card::before {
       content: '';
@@ -745,7 +747,7 @@
       </a>
 
       <!-- Card 5: Incident Orchestrator -->
-      <a class="card" href="https://orchestrator.ado-runner.com" target="_blank" rel="noopener" style="grid-column: 1 / -1;">
+      <a class="card" href="https://orchestrator.ado-runner.com" target="_blank" rel="noopener">
         <span class="card-corner">05</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
         <div class="card-title">Incident Orchestrator<span class="arrow">→</span></div>
@@ -761,6 +763,26 @@
           <span class="badge">SSE Streaming</span>
           <span class="badge">RAG-Integrated</span>
           <span class="badge">Telegram</span>
+        </div>
+      </a>
+
+      <!-- Card 6: On-Call Assistant -->
+      <a class="card" href="https://oncall.ado-runner.com" target="_blank" rel="noopener">
+        <span class="card-corner">06</span>
+        <div class="card-status"><div class="status-dot"></div>LIVE</div>
+        <div class="card-title">On-Call Assistant<span class="arrow">→</span></div>
+        <div class="card-role">Incident Response &amp; Escalation</div>
+        <div class="card-desc">
+          AI-powered on-call operations hub. When an alert fires, it aggregates context from Infra Monitor, Incident Logger, and RAG Runbook in parallel — generating a structured response plan via Claude. High/critical alerts route to Telegram with action buttons; low/medium are auto-handled. Full incident lifecycle tracking with timeline, status flow, and shift handoff notes.
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-orange">Claude API</span>
+          <span class="badge">Python</span>
+          <span class="badge">SQLite</span>
+          <span class="badge">Flask</span>
+          <span class="badge">Webhook</span>
+          <span class="badge">Telegram</span>
+          <span class="badge">HMAC Auth</span>
         </div>
       </a>
 
