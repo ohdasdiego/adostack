@@ -691,17 +691,17 @@
         <span class="card-corner">02</span>
         <div class="card-status"><div class="status-dot"></div>LIVE</div>
         <div class="card-title">Incident Logger<span class="arrow">→</span></div>
-        <div class="card-role">Incident Management</div>
+        <div class="card-role">Detection &amp; Record Keeping</div>
         <div class="card-desc">
-          Automated alerting and incident tracking pipeline. Detects threshold breaches across CPU, memory, disk, and processes — fires Telegram alerts with AI-generated summaries, severity levels, and recommended actions. Full ACK/resolve workflow with SQLite-backed history.
+          Threshold detection engine for the ADOStack platform. Monitors CPU, memory, disk, and processes every 5 minutes — generates AI incident summaries via Claude and routes alerts to the On-Call Assistant via HMAC-signed webhook for lifecycle tracking and action buttons. Falls back to direct Telegram if On-Call is unavailable.
         </div>
         <div class="card-badges">
           <span class="badge badge-orange">Claude API</span>
           <span class="badge">Python</span>
           <span class="badge">Flask</span>
           <span class="badge">SQLite</span>
-          <span class="badge">Nginx</span>
-          <span class="badge">Cloudflare</span>
+          <span class="badge">Webhook</span>
+          <span class="badge">HMAC Auth</span>
         </div>
       </a>
 
